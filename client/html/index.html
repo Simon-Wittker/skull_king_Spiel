@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Websockets demo for HTML5 Games Dev</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- --------------------welcomeSite-------------------- -->
+    <div class="screen joinScreen active" id="joinScreen">
+            <div class="languageDiv" id="welcomeLanguageDiv">
+                <label id="welcomeLanguagesLabel" for="welcomeLanguages">Wähle deine Sprache: </label>
+                <select id="welcomeLanguages" onchange="changeLanguageWelcome()">
+                    <option value="1">Deutsch</option>
+                    <option value="2">English</option>
+                </select>
+            </div>
+        <div class="form">
+            <h1 id="welcomeTitle">Willkommen zu Skull King</h1>
+            <img id="welcomeCover" src="../image/cover.png" alt="SkullKingCoverImage"/>
+            <div class="formInput">
+                <label id="whatsYourName">Wie möchtest du heissen?</label>
+                <label for="username"></label>
+                <input type="text" id="username">
+            </div>
+            <div class="formInput">
+                <button id="joinUser">Jetzt beitreten</button>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------ -->
+    <!-- --------------------menuSite-------------------- -->
+    <div class="menu" id="menuScreen" hidden>
+
+        <div class="grdHeader">
+            <h1 class="fileTitle" id="mainTitle">Hauptmenü</h1>
+            <div class="languageDiv" id="mainLanguagesDiv">
+                <label id="mainLanguagesLabel" for="mainLanguages">Wähle deine Sprache: </label>
+                <select id="mainLanguages" onchange="changeLanguageMain()">
+                    <option value="1">Deutsch</option>
+                    <option value="2">English</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grdLeft"></div>
+        <div class="grdBarrelUpLeft">
+            <div class="barrelDiv">
+                <button id="newGame" class="barrelButton"></button>
+            </div>
+        </div>
+
+        <div class="grdTable">
+            <div id="tableContent">
+                <!--exitConfirmationWindow-->
+                <div class="exitConfirmBox" id="mainSiteConfirmDiv" hidden>
+                    <h2 id="exitConfirmation">Sind sie sicher, dass sie das Spiel verlassen wollen? Alle Ihre Daten werden dann gelöscht!</h2>
+                    <button class="confirmButton" id="exitConfirmYesButton" onclick="isConfirm(true)">Ja, jetzt beenden.</button>
+                    <button class="confirmButton" id="exitConfirmNoButton" onclick="isConfirm(false)">Nein, noch nicht beenden</button>
+                </div>
+                <!--errorBannerMain-->
+                <div id="errorBannerMainDiv" hidden>
+                    <h4 id="errorBannerMainText">Ein Fehler ist aufgetreten. Ein Spieler kann kein neues Spiel wenn er bereits in einer Spiel-Lobby ist.</h4>
+                    <button id="errorConfirmMain">Fortsetzen</button>
+                </div>
+                <div id="toManyPlayerBannerMainDiv" hidden>
+                    <h4 id="toManyPlayerBannerMainText">Die Lobby ist voll. Der Spieler kann deshalb nicht beitreten.</h4>
+                    <button id="failConfirmMain">Fortsetzen</button>
+                </div>
+                <!-- List of Lobbies -->
+                <div class="tableContentMain" id="gameListDiv" hidden>
+                    <h3 id="gameListInMain">Liste aller Spiele (beitretbar):</h3>
+                    <ul class="gameList"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grdBarrelUpRight">
+            <div class="barrelDiv">
+                <button id="openChat" class="barrelButton"></button>
+            </div>
+        </div>
+
+        <div class="grdRight">
+            <!-- ----------exitButton---------- -->
+            <div id="exitDiv">
+                <h5 class="exitLabel">Exit</h5>
+            <button id="exitButton" class="hatchButton"></button>
+            </div>
+        </div>
+
+        <div class="grdBarrelDownLeft">
+            <div class="barrelDiv">
+                <button id="joinGame" class="enterChatroom barrelButton"></button>
+            </div>
+        </div>
+
+        <div class="grdBarrelDownRight">
+            <div class="barrelDiv">
+                <button id="mainSetup" class="barrelButton"></button>
+            </div>
+        </div>
+
+        <div class="grdBottom"></div>
+    </div>
+    <!-- ------------------------------------------------ -->
+    <!-- --------------------chatSite-------------------- -->
+    <div class="screen chatScreen " id="chatScreen" hidden>
+        <div class="messages"></div>
+        <div class="typeBox">
+            <label for="chatInput"></label>
+            <input type="text" id="chatInput" autocomplete="off">
+            <button type="button" id="chatSend">Senden</button>
+        </div>
+        <div class="userJoinMessagesDiv"></div>
+
+        <div class="backToMenu" id="chatroomToMenu">
+            <h5 class="backLabel" id="backChat">Zurück</h5>
+            <button id="chatroomBackButton" class="hatchButton"></button>
+        </div>
+    </div>
+    <!-- ------------------------------------------------- -->
+    <!-- --------------------lobbySite-------------------- -->
+    <div class="menu" id="lobbyScreen" hidden>
+
+        <div class="grdHeader">
+            <h1 class="fileTitle" id="lobbyTitle">Spiel-Lobby</h1>
+            <h2 id="gameName">random game name</h2>
+            <div class="languageDiv" id="lobbyLanguagesDiv">
+                <label id="lobbyLanguagesLabel" for="lobbyLanguages">Wähle deine Sprache: </label>
+                <select id="lobbyLanguages" onchange="changeLanguageLobby()">
+                    <option value="1">Deutsch</option>
+                    <option value="2">English</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grdBarrelUpLeft">
+            <div class="barrelDiv">
+                <button class="barrelButton" id="exitLobby" ></button>
+            </div>
+        </div>
+
+        <div class="grdTable">
+            <div class="tableContentLobby">
+                <h3 id="playerListInLobby">Spielerliste:</h3>
+                <div class="playerList"></div>
+                <!--errorBannerLobby-->
+                <div id="errorBannerDeleteLobbyDiv" hidden>
+                    <h4 id="errorBannerDeleteLobbyText">Ein Fehler ist aufgetreten. Die Game-Lobby kann nicht gelöscht werden, wenn mehr als 1 Spieler in der Lobby ist.</h4>
+                    <button id="errorConfirmDeleteLobby">Fortsetzen</button>
+                </div>
+                <div id="errorBannerStartedLobbyDiv" hidden>
+                    <h4 id="errorBannerStartedLobbyText">Um das Spiel zu starten benötigt es zwei bis sechs Spieler.</h4>
+                    <button id="errorConfirmStatedLobby">Fortsetzen</button>
+                </div>
+                <!--ConfirmToGameReady-->
+                <div id="confirmToGameReadyDiv" hidden>
+                    <h4 id="confirmToGameReadyText">Bereit, das Spiel zu starten?</h4>
+                    <button class="readyToGameButton" id="readyToGameButtonYes" onclick="areYouReady(true)">Bereit</button>
+                    <button class="readyToGameButton" id="readyToGameButtonNo" onclick="areYouReady(false)">Nicht bereit</button>
+                </div>
+                <div id="confirmGameStartDiv" hidden>
+                    <h4 id="confirmGameStartText" hidden>Warten, bis alle Spieler bereit sind.</h4>
+                </div>
+                <div id="confirmGameStopDiv" hidden>
+                    <h4 id="gameStartStoppedText" hidden >Ein Spieler war nicht bereit. Der Spielstart wurde abgebrochen.</h4>
+                    <button id="confirmGameStopButton" hidden>Fortsetzen</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameRulesDiv" hidden>
+            <div id="gameRulesSite_DE" hidden>Spielziel</br>Der Wettstreit der Piraten geht über 10 Durchgänge. In jedem Durchgang müssen die Spieler anzeigen, wie viele Stiche sie in diesem Durchgang gewinnen wollen. Und dann geht es darum, diese Ansage genau zu erfüllen...</br></br>
+                    Ablauf</br>
+                    Zu Beginn einer Runde erhält jeder Spieler seine Karten. Die Anzahl der Karten entspricht dem Durchgang. Im ersten Durchgang erhält jeder Spieler nur 1 Karte, im zweiten 2 Karten usw. bis im zehnten und letzten Durchgang an jeden Spieler 10 Karten verteilt werden.</br>
+                    Pro Runde muss jeder Spieler nacheinander offen eine Karte ausspielen. Der Spieler mit der höchsten Karte macht den sogenannten "Stich". </br>
+                    Jeder Spieler schaut sich nach dem Austeilen der Karten seine Karten an und überlegt sich, wie viele Stiche er mit diesen Karten gewinnen kann. Anschliessend trägt er die geschätzte Stichzahl via der Schaltfläche "Stich festlegen" ein.</br>
+                    Sobald alle Spieler ihre Stichansagen abgegeben haben, geht es los. Der Spieler, der an der Reihe ist, erhält die Aufforderung, eine seiner Karten zu spielen.</br>
+                    Haben alle Spieler eine Karte ausgespielt, wird ermittelt, welcher Spieler den "Stich" erhält. Diesem wird der Stich gutgeschrieben und er spielt die nächste Karte aus. </br></br>
+                    Karten und Stichreihenfolge</br>
+                    Den Stich gewinnt immer derjenige Spieler, der die höchste Karte gespielt hat. Grundsätzlich ist das die höchste Farb-Karte in der angespielten Farbe. Wurden andere Farb-Karten als die angespielte Farbe gelegt (weil der Spieler diese Farbe nicht hat), so ist deren Wert bedeutungslos.</br>
+                    Ausnahme: Die Totenkopfflagge (Schwarz) ist die höchste Farbe und übertrumpft alle anderen Farben (unabhängig vom Zahlenwert). Alle anderen Farben sind untereinander gleichrangig.
+                    </br></br>
+                    Grundsätzlich muss ein Spieler die ausgespielte Farbe bedienen. Allerdings kann ein Spieler, auch wenn er die Farbe bedienen könnte, immer auch eine der folgenden Sonderkarten spielen:</br></br>
+                    Escape (5x): </br>Die weisse Flagge hat den Wert "0" und ist immer die niedrigste Karte. Sie wird gespielt, um einen Stich nicht zu gewinnen. Spielen jedoch alle Spieler eine Escape Flagge, gewinnt derjenige den Stich, der die erste Escape-Karte gespielt hat. </br></br>
+                    Mermaid (2x): </br>Die Mermaid ist höher als alle Farb-Karten (auch höher als die Totenkopfflagge), wird aber von Piraten überstochen. Sie ist wiederum höher als der Skull King, denn dieser lässt sich von ihr betören: Befindet sich die Mermaid im selben Stich wie der Skull King, gewinnt die Mermaid immer den Stich (egal welche Karten sonst noch im Stich sind) und der Spieler erhält dafür zusätzlich 50 Punkte, sofern er seine Stichansage am Ende der Runde einhält. Werden mehrere Mermaids gespielt, sticht die erste.</br></br>
+                    Piraten (5x): </br>Diese Karten sind höher als alle Farb-Karten (unabhängig von deren Farbe oder Wert) und die Mermaid.</br>Es gibt nur 3 Möglichkeiten mit einer Piraten-Karte keinen Stich zu gewinnen:
+                    </br>&#9755; sie wird nach einer anderen Piraten-Karte gespielt
+                    </br>&#9755; sie wird durch einen später ausgespielten Skull King überstochen oder nach dem Skull King gespielt
+                    </br>&#9755; sie wird von einer Mermaid überstochen, die im selben Stich wie der Skull King gespielt wird
+
+                    </br>
+                    Skull King (1x):</br> Der Skull King kann nur von einer Mermaid geschlagen werden. Alle anderen Karten sind niedriger als der Skull King. Befindet sich im Stich, der mit dem Skull King gewonnen wird, eine Piraten-Karte, erhält der Spieler pro Pirat 30 Bonuspunkte, sofern er seine Stichansage einhalten kann.</br></br>
+                    Punktevergabe:</br>
+                    Für das richige Ansagen seiner Stichanzahl erhält ein Spieler 20 Punkte pro gewonnen Stich.</br>
+                    Beispiel: Ein Spieler sagt 3 Stiche an, die er auch schafft. Er erhält 3 x 20 Punkte.</br>
+                    Gewinnt ein Spieler mehr oder weniger Stiche als angekündigt, bekommt er keine Plus- und keine Bonuspunkte. Stattdessen wird die Differenz zur Ansage mal 10 Minuspunkte gerechnet.</br>
+                    Beispiel: Ein Spieler sagt 5 Stiche an, gewinnt aber nur 1 Stich. Die Differenz beträgt 4 Stiche. Er bekommt 40 Minuspunkte.</br>
+                    Wichtig: Macht ein Spieler die Ansage "Kein Stich" und schafft es, erhält er Punkte entsprechend der aktuellen Runde mal 10. </br>
+                    Beispiel: In Runde 4 sagt ein Spieler an, keine Stiche zu gewinnen. Am Rundenende hat er tatsächlich keinen Stich erreicht. Hierfür erhält er Runde 4 x 10 also 40 Punkte.</br>
+                    Gelingt einem Spieler dies aber nicht, und er muss einen oder mehrere Stiche nehmen, so erhält er die gleiche Anzahl Punkte als Minuspunke notiert. Somit ist es egal, wieviele Stiche er noch gemacht hat. </br></br>
+                    Spielende:</br>
+                    Das Spiel wird nach der 10. Runde beendet und der Spieler mit den meisten Punkten wird zum Sieger gekrönt.
+            </div>
+            <div id="gameRulesSite_EN"hidden>Game objective</br>The pirates' contest lasts 10 rounds. In each round, players must indicate how many tricks they want to win in that round. And then the task is to fulfill this bet exactly...</br></br>
+                Procedure</br>
+                At the beginning of each round, each player receives his cards. The number of cards corresponds to the round. In the first round each player receives only 1 card, in the second 2 cards and so on until in the tenth and last round 10 cards are distributed to each player.</br>
+                Each player in turn must play one card face up per round. The player with the highest card makes the so-called "trick".</br>
+                After the cards have been dealt, each player looks at his cards and considers how many tricks he can win with these cards. Then he enters the estimated number of tricks via the "Set bet" button.</br>
+                Once all players have placed their bets, the game starts. The player whose turn it is receives the call to play one of his cards.</br>
+                Once all players have played a card, it is determined which player receives the "trick". This player is credited with the trick and plays the next card. </br></br>
+                Cards and trick order</br>
+                The trick is always won by the player who played the highest card. Basically, this is the highest colored card in the played color. If other color cards were played than the played color (because the player does not have this color), their value is meaningless.</br>
+                Exception: The skull flag (black) is the highest color and trumps all other colors (regardless of numerical value). All other colors rank equally among themselves.
+                </br></br>
+                Basically, a player must serve the color played. However, even if a player could serve the color, he can always play one of the following special cards:</br></br>
+                Escape (5x): </br>The white flag has the value "0" and is always the lowest card. It is played in order not to win a trick. However, if all players play an Escape Flag, the one who played the first Escape card wins the trick. </br></br>
+                Mermaid (2x): </br>The Mermaid is higher than all color cards (also higher than the Skull Flag), but is surpassed by pirate cards. She in turn is higher than the Skull King, because the latter can be beguiled by her: If the Mermaid is in the same trick as the Skull King, the Mermaid always wins the trick (no matter what other cards are in the trick) and the player receives an additional 50 points for this, provided he keeps his trick bet at the end of the round. If more than one Mermaid is played, the first one wins.</br></br>
+                Piraten (5x): </br>These cards are higher than all color cards (regardless of their color or value) and the Mermaid.</br>There are only 3 ways not to win a trick with a Pirate card:
+                </br>&#9755; it is played after another pirate card
+                </br>&#9755; it is over-played by a Skull King played later, or played after the Skull King
+                </br>&#9755; it is surpassed by a Mermaid played in the same trick as the Skull King
+
+                </br>
+                Skull King (1x):</br> The Skull King can only be beaten by a Mermaid. All other cards are lower than the Skull King. If there is a pirate card in the trick won with the Skull King, the player receives 30 bonus points per pirate, provided he can keep his trick bet.</br></br>
+                Scoring:</br>
+                For correctly announcing his number of tricks, a player receives 20 points for each trick won.</br>
+                Example: A player bets 3 tricks, which he manages. He receives 3 x 20 points.</br>
+                If a player wins more or fewer tricks than announced, he receives no plus points and no bonus points. Instead, the difference to the announcement is multiplied by 10 minus points.</br>
+                Example: A player announces 5 tricks, but wins only 1 trick. The difference is 4 tricks. He gets 40 minus points.</br>
+                Important: If a player makes the announcement "No trick" and succeeds, he receives points corresponding to the current round times 10. </br>
+                Example: In round 4, a player says he will not win any tricks. At the end of the round he has actually not won any tricks. For this he receives round 4 x 10, i.e. 40 points.</br>
+                However, if a player fails to do this and has to take one or more tricks, he receives the same number of points as minus points. Thus, it does not matter how many more tricks he has taken. </br></br>
+                Game end:</br>
+                The game ends after the 10th round and the player with the most points is crowned the winner.
+            </div>
+            <button id="closeGameRulesButton">Zurück</button>
+        </div>
+
+        <div class="grdBarrelUpRight">
+            <div class="barrelDiv">
+                <button class="barrelButton" id="barrelGameRules" ></button>
+            </div>
+        </div>
+
+        <div class="grdRight">
+            <!-- ----------backButton---------- -->
+            <div class="backToMenu" id="lobbyToMenu">
+                <h5 class="backLabel" id="backLobby">zum Haupt-Menü</h5>
+                <button id="lobbyBackButton" class="hatchButton"></button>
+            </div>
+        </div>
+
+        <div class="grdBarrelDownLeft">
+            <div class="barrelDiv" id="deleteLobbyBarrelDiv">
+                <button id="deleteLobby" class="barrelButton"></button>
+            </div>
+        </div>
+
+        <div class="grdBarrelDownRight">
+            <div class="barrelDiv">
+                <button id="startGame" class="barrelButton"></button>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- ------------------------------------------------- -->
+    <!-- --------------------setupSite-------------------- -->
+    <div class="menu" id="setupScreen" hidden>
+
+        <div class="grdHeader">
+            <h1 class="fileTitle" id="setupTitle">Einstellungen</h1>
+            <div class="languageDiv" id="setupLanguagesDiv">
+                <label id="setupLanguagesLabel" for="setupLanguages">Wähle deine Sprache: </label>
+                <select id="setupLanguages" onchange="changeLanguageSetup()">
+                    <option value="1">Deutsch</option>
+                    <option value="2">English</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grdTable" id="setupTable">
+            <div id="currentNameDiv">
+                <h3 id="currentNameLabel">Du heisst: </h3>
+                <h3 id="currentNameText">Max Mustermann</h3>
+            </div>
+            <div class="form" id="setupForm" >
+                <div class="formInput">
+                    <label id="whatsYourNewName">Wie möchtest du neu heissen?</label>
+                    <label for="usernameNew"></label>
+                    <input type="text" id="usernameNew">
+                </div>
+                <div class="formInput">
+                    <button id="changeUsername">Name ändern</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grdRight">
+            <!-- ----------backButton---------- -->
+            <div class="backToMenu" id="setupToMenu">
+                <h5 class="backLabel" id="backSetup">Zurück</h5>
+                <button id="setupBackButton" class="hatchButton"></button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------------------------------------------ -->
+    <!-- --------------------Game------------------ ------------------------------------------------  ------------------------------------------------ -- -->
+    <div class="gameTable screen" id="gameItself" hidden>
+        <div class="grdLanguage">
+            <!-- ---------------------language--------------------- -->
+            <div id="gameLanguagesDiv">
+                <label id="gameLanguagesLabel" for="gameLanguages">Wähle deine Sprache: </label>
+                <select id="gameLanguages" onchange="changeLanguageGameTable()">
+                    <option value="1">Deutsch</option>
+                    <option value="2">English</option>
+                </select>
+            </div>
+            <div id="leaveDiv">
+                <button id="leaveButton" class="hatchButton"></button>
+                <h5 id="leaveLabel">Spiel verlassen</h5>
+            </div>
+        </div>
+
+        <div id="player1Deck" >
+            <div class="sidePlayerDownHeader" >
+                <div class="playerName" id="player1Name"></div>
+                <div class="playerId" id="player1UserId"></div>
+                <div class="totalScoreSoFar" id="totalScoreSoFarFromPlayer1"></div>
+                <div class="currentScore" id="currentScoreFromPlayer1"></div>
+                <div class="betScore">
+                    <div class="madeBets" id="madeBetsPlayer1"></div>
+                    <label class="backslash" id="labelP1" hidden>/</label>
+                    <div class="estimatedBets" id="estimatedBetsPlayer1"></div>
+                </div>
+            </div>
+            <div class="showPlayerCard" id="player1Cards"></div>
+        </div>
+
+        <div id="player2Deck" >
+            <div class="sidePlayerUpHeader">
+                <div class="playerName" id="player2Name"></div>
+                <div class="playerId" id="player2UserId"></div>
+                <div class="totalScoreSoFar" id="totalScoreSoFarFromPlayer2"></div>
+                <div class="currentScore" id="currentScoreFromPlayer2"></div>
+                <div class="betScore">
+                    <div class="madeBets" id="madeBetsPlayer2"></div>
+                    <label class="backslash" id="labelP2" hidden>/</label>
+                    <div class="estimatedBets" id="estimatedBetsPlayer2"></div>
+                </div>
+            </div>
+            <div class="showPlayerCard" id="player2Cards"></div>
+        </div>
+
+        <div class="grdMiddleDown userPlayer" id="userDeck">
+            <label id="infoText">Hier werden die Anweisungen stehen</label>
+            <div id="userNameField">Spielername: </div>
+            <div id="userPlayerName">user (also Ich) ^^</div>
+            <div id="totalScoreSoFarField">totale Punktzahl: </div>
+            <div id="totalScoreSoFarFromUser">42</div>
+            <div id="currentScoreField">aktuelle Punktzahl: </div>
+            <div id="currentScoreFromUser">(42)</div>
+            <div id="betScoreField">
+                <div id="betScoreFieldStitches">Stiche:</div>
+                <div id="betScoreFieldExplain">erreicht / angesagt</div>
+            </div>
+            <div id="betScoreUser">
+                <div id="madeBetsUser">42</div>
+                <label class="backslash" id="userBackSlash">/</label>
+                <div id="estimatedBetsUser">42</div>
+            </div>
+            <label id="userCardsLabel">Deine gelegte Karte:</label>
+            <div class="showPlayerCard" id="userCards"></div>
+        </div>
+
+        <div class="grdMiddleTable"></div>
+
+        <div class="tableDesk">
+            <div class="cardDeck">
+                <div class="card" id="cardPlace1" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace2" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace3" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace4" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace5" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace6" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace7" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace8" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace9" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+                <div class="card" id="cardPlace10" onclick="cardSelection(this.id)" onmouseover="hoverAdjustments(this)" onmouseout="hoverStop(this)" ></div>
+            </div>
+        </div>
+
+        <div class="buttonField" id="buttonFieldDiv">
+            <button class="buttonFieldButton" id="makeABetButton">Stich festlegen</button>
+            <button class="buttonFieldButton" id="hittingOrderButton">Schlag-Reihen-Folge</button>
+        </div>
+        <div id="currentRoundDiv">
+            <label id="currentRoundLabel">Momentan läuft die Runde:</label>
+            <label id="currentRoundText">42</label>
+        </div>
+
+        <div id="player3Deck" >
+            <div class="sidePlayerUpHeader" >
+                <div class="playerName" id="player3Name"></div>
+                <div class="playerId" id="player3UserId"></div>
+                <div class="totalScoreSoFar" id="totalScoreSoFarFromPlayer3"></div>
+                <div class="currentScore" id="currentScoreFromPlayer3"></div>
+                <div class="betScore">
+                    <div class="madeBets" id="madeBetsPlayer3"></div>
+                    <label class="backslash" id="labelP3" hidden>/</label>
+                    <div class="estimatedBets" id="estimatedBetsPlayer3"></div>
+                </div>
+            </div>
+            <div class="showPlayerCard" id="player3Cards"></div>
+        </div>
+
+        <div id="player4Deck" >
+            <div class="sidePlayerUpHeader" >
+                <div class="playerName" id="player4Name"></div>
+                <div class="playerId" id="player4UserId"></div>
+                <div class="totalScoreSoFar" id="totalScoreSoFarFromPlayer4"></div>
+                <div class="currentScore" id="currentScoreFromPlayer4"></div>
+                <div class="betScore">
+                    <div class="madeBets" id="madeBetsPlayer4"></div>
+                    <label class="backslash" id="labelP4" hidden>/</label>
+                    <div class="estimatedBets" id="estimatedBetsPlayer4"></div>
+                </div>
+            </div>
+            <div class="showPlayerCard" id="player4Cards"></div>
+        </div>
+
+        <div id="player5Deck" >
+            <div class="sidePlayerDownHeader">
+                <div class="playerName" id="player5Name"></div>
+                <div class="playerId" id="player5UserId"></div>
+                <div class="totalScoreSoFar" id="totalScoreSoFarFromPlayer5"></div>
+                <div class="currentScore" id="currentScoreFromPlayer5"></div>
+                <div class="betScore">
+                    <div class="madeBets" id="madeBetsPlayer5"></div>
+                    <label class="backslash" id="labelP5" hidden>/</label>
+                    <div class="estimatedBets" id="estimatedBetsPlayer5"></div>
+                </div>
+            </div>
+            <div class="showPlayerCard" id="player5Cards"></div>
+        </div>
+
+        <div id="infoWindow">
+            <h4 id="infoWindowText"></h4>
+            <label for="betCounter"></label>
+            <select id="betCounter">
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button id="infoWindowButton" hidden></button>
+            <button id="stopBetButton" hidden></button>
+            <label id="indexFromStichWinnerLabel"></label>
+        </div>
+
+        <div id="gameQuitWindow" >
+            <h4 id="gameQuitText" hidden>Willst du wirklich das Spiel vorzeitig abbrechen? Dieser Vorgang kann nicht rückgängig gemacht werden!</h4>
+            <h4 id="waitForTheAnswer" hidden>Du hast auf "Spiel abbrechen" geklickt. Warte, bis alle Spieler sich entschieden haben.</h4>
+            <h4 id="continueTheGameTextYou" hidden>Du hat auf "Nein, weiterspielen" geklickt. Das Spiel wird fortgeführt.</h4>
+            <h4 id="continueTheGameTextOther" hidden>Es wurde "Nein, weiterspielen" geklickt. Das Spiel wird fortgeführt.</h4>
+            <button id="gameQuitButtonYes" onclick="gameQuitHandler(true)" hidden>Ja, Spiel abbrechen und verlassen.</button>
+            <button id="gameQuitButtonNo" onclick="gameQuitHandler(false)" hidden>Nein, ich will noch weiterspielen.</button>
+            <button id="continueTheGameButton" hidden>Fortfahren</button>
+        </div>
+
+        <div id="hittingOrderDiv" hidden>
+            <div id="hittingOrderImg"></div>
+            <button id="closeHittingOrderButton">Zurück</button>
+        </div>
+
+    </div>
+    <!-- ------------------------------------------------------------ -->
+</div>
+
+<script src="../js/jquery-3.6.0.js"></script>
+<script src="../js/clientLogic.js"></script>
+<script src="../js/translations.js"></script>
+</body>
+</html>

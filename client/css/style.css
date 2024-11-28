@@ -1,0 +1,1541 @@
+/* ---------- General ---------- */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Apple Chancery", serif;
+    color: #eeeeee;
+}
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-image: url("../image/background.png");
+}
+.app{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+h1{ /* .fileTitel, #welcomeTitel */
+    font-size: 32px;
+    margin-right: 0;
+    margin-top: 15px;
+    text-align: center;
+}
+h2{ /* #exitConfirmation, #gameName */
+    font-size: 28px;
+}
+h3{
+    font-size: 28px;
+}
+h4{ /* #gameListInMain, */
+    font-size: 18px;
+}
+
+h5{ /* .exitLabel, .backLabel*/
+    font-size: 18px;
+}
+
+button{
+    height: fit-content;
+    width: fit-content;
+    font-size: 20px;
+}
+
+
+/* ---------- WelcomeSite ---------- */
+.app > .screen {
+    display: none;
+}
+.app > .screen.active{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    padding: 30px;
+}
+.formInput{
+    width: 100%;
+    margin: 20px 0;
+}
+.formInput label{
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #eeeeee;
+}
+.formInput input{
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #555;
+    font-size: 16px;
+    color: black;
+}
+.formInput button {
+    padding: 10px 20px;
+    background: black;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: #eeeeee;
+}
+#welcomeCover {
+    height: 40%;
+    width: 40%;
+    margin: 0 30% 0 30%;
+}
+#welcomeTitle{
+    margin-bottom: 20px;
+    border-bottom: 4px solid #555;
+    padding: 5px;
+    display: inline-block;
+}
+
+
+/* ---------- LanguageChangerDiv---------- */
+.languageDiv{
+    max-width: 1000px;
+    margin-left: calc((100% - 1000px)/2);
+    text-align: right;
+    height: 50px;
+}
+.languageDiv label{
+    font-size: 16px;
+}
+#mainLanguagesDiv, #setupLanguagesDiv{
+    margin-top: -113.1px;
+}
+#lobbyLanguagesDiv {
+    margin-top: -153px;
+}
+/* ---------- MainMenu ---------- */
+.app > .menu{
+    display: none;
+}
+.app > .menu.active{
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+.menu{
+    grid-template-columns: 10% 20% auto 20% 10%;
+    grid-template-rows: 100px auto auto 10px;
+    gap: 2px;
+    padding: 5px;
+}
+.menu .barrelButton{
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+#openChat{
+    background-image: url("../image/barrelJoinChatroomDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#newGame{
+    background-image: url("../image/barrelNewGameDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#joinGame{
+    background-image: url("../image/barrelJoinGameDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#mainSetup{
+    background-image: url("../image/barrelSetupDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.menu .barrelDiv{
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.grdHeader{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    text-align: center;
+    align-items: center;
+}
+.grdLeft{
+    grid-column: 1;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+.grdBarrelUpLeft{
+    grid-column: 2;
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+.grdBarrelDownLeft{
+    grid-column: 2;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+.grdTable{
+    grid-column: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    background-image: url("../image/barrelTableWithCover.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+.grdBarrelUpRight{
+    grid-column: 4;
+}
+.grdBarrelDownRight{
+    grid-column: 4;
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+.grdRight{
+    grid-column: 5;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    display: grid;
+    grid-template-rows: 70% 30%;
+    text-align: center;
+}
+.grdBottom{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row: 4;
+}
+.gameLobbyname{
+    font-size: 24px;
+    text-align: center;
+    background: lightslategrey;
+    color: black;
+    margin: 5px;
+}
+.tableContentLobby, .tableContentMain{
+    text-align: center;
+    width: 100%;
+    height: fit-content;
+    background: rgba(245, 245, 245, 0.8);
+    overflow: auto;
+    margin-top: -25%;
+}
+.menu button{
+    color: black;
+}
+/* ---------- ChatroomSite ----------*/
+.chatScreen{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 400px;
+}
+.chatScreen .messages{
+    width: 100%;
+    height: 75%;
+    background: rgba(245, 245, 245, 0.8);
+    overflow: auto;
+}
+.chatScreen .messages .message{
+    display: flex;
+    padding: 10px;
+}
+.chatScreen .messages .message > div{
+    max-width: 80%;
+    background: white;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+}
+.chatScreen .messages .message.my-message{
+    justify-content: flex-end;
+}
+.chatScreen .messages .message.other-message{
+    justify-content: flex-start;
+}
+.chatScreen .messages .message.update{
+    justify-content: flex-start;
+}
+.chatScreen .messages .message .name{
+    font-size: 13px;
+    color: dimgray;
+    margin-bottom: 5px;
+}
+.chatScreen .messages .message .text{
+    word-wrap: break-word;
+    color: black;
+}
+.chatScreen .typeBox {
+    width: 100%;
+    height: 50px;
+    display: flex;
+}
+.chatScreen .typeBox #chatInput{
+    flex: 1;
+    height: 50px;
+    font-size: 18px;
+}
+.chatScreen .typeBox #chatSend{
+    width: 80px;
+    height: 100%;
+    background: #111;
+    color: #eeeeee;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.chatScreen .userJoinMessagesDiv {
+    width: 100%;
+    height: 20%;
+    background: rgba(125, 125, 125, 0.8);
+    overflow: auto;
+    position: relative;
+}
+.chatScreen .userJoinMessagesDiv .userJoinChatroomText {
+    font-size: 12px;
+    color: black;
+    margin: 5px 5px 5px 1.5%;
+    word-wrap: break-word;
+    max-width: 50%;
+    background: white;
+    box-shadow: 0 0 20px 5px rgba(0,0,0,0.05);
+    padding: 10px;
+}
+.chatScreen .userJoinMessagesDiv .userLeftChatroomText {
+    font-size: 12px;
+    margin: 5px 5px 5px 48.5%;
+    word-wrap: break-word;
+    max-width: 50%;
+    background: black;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+}
+#chatroomToMenu {
+    margin: -30% 0 0 110%;
+}
+
+/* ---------- lobbySite ----------*/
+#playerListInLobby, #gameListInMain {
+    border-bottom: black 3px solid;
+    color: black;
+    padding: 3% 0 3% 0;
+}
+
+.playerList, .playerUsername{
+    font-size: 28px;
+    padding: 5px;
+    z-index: 2;
+    color: black;
+}
+
+#startGame{
+    background-image: url("../image/barrelStartGameDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#barrelGameRules{
+    background-image: url("../image/barrelGameRules_DE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#exitLobby{
+    background-image: url("../image/barrelLobbyExitDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#deleteLobby {
+    background-image: url("../image/barrelLobbyDeleteDE.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#lobbyTitle{
+    grid-row: 1;
+}
+#gameName {
+    grid-row: 2;
+    margin-top: 5%;
+    color: #eeeeee;
+}
+#gameRulesDiv{
+    grid-column-start: 2;
+    grid-column-end: 7;
+    grid-row-start: 1;
+    grid-row-end: 6;
+    width: 90%;
+    left: 5%;
+    top: 5%;
+    z-index: 3;
+    display: none;
+    grid-template-columns: 90% 10%;
+}
+#gameRulesSite_DE, #gameRulesSite_EN{
+    font-size: 20px;
+    width: 100%;
+    grid-column: 1;
+    background-color: #eeeeee;
+    color: black;
+    border: green 3px solid;
+    border-radius: 10px;
+    padding: 5px;
+    overflow-y: scroll;
+    max-height: 900px;
+}
+
+#closeGameRulesButton{
+    grid-column: 2;
+    margin: 0 auto 0 auto;
+    padding: 3px 10px 3px 10px;
+    background-color: #eeeeee;
+    border: green 3px solid;
+    border-radius: 10px;
+}
+
+
+/* ---------- setup ---------- */
+#usernameNew{
+    width: 60%;
+}
+#setupTitle {
+    text-align: center;
+}
+#setupTable{
+    height: 100%;
+    background-image: url("../image/barrelTableNew.png");
+}
+#currentNameDiv {
+    position: absolute;
+    grid-row: 2;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    padding: 30px;
+}
+#currentNameDiv h3{
+    color: #eeeeee;
+}
+#changeUsername{
+    color: #eeeeee;
+}
+
+/* ---------- hatchButton to exit or back ---------- */
+.hatchButton {
+    background-image: url("../image/hatch.png");
+    height: 60px;
+    width: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+.hatchButton:hover {
+    background-image: url("../image/open_hatch.png");
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.confirmDiv {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -12%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+.exitConfirmBox {
+    position: absolute;
+    width: 70%;
+    height: 25%;
+    top: 30%;
+    left: 15%;
+    padding: 10px;
+    text-align: center;
+    background: #eee;
+    border: 3px solid red;
+}
+#exitConfirmation{
+    font-size: 28px;
+    color: black;
+    margin-bottom: 0;
+}
+
+.confirmButton {
+    color: black;
+    padding: 5px;
+    background: #eee;
+    border: 3px solid red;
+    position: center;
+}
+#exitDiv {
+    grid-row: 2;
+}
+
+/* ---------- Error-Windows ---------- */
+#menuScreen h4, button{
+    color: black;
+}
+#lobbyScreen h4{
+    color: black;
+}
+#errorBannerDeleteLobbyDiv, #errorBannerMainDiv, #toManyPlayerBannerMainDiv, #errorBannerStartedLobbyDiv{
+    position: absolute;
+    width: 50%;
+    height: fit-content;
+    top: 35%;
+    left: 25%;
+    padding: 10px;
+    text-align: center;
+    background: #eee;
+    border: 3px solid red;
+}
+#errorConfirmDeleteLobby, #errorConfirmMain, #failConfirmMain, #errorConfirmStatedLobby{
+    position: center;
+    top: 85%;
+    padding: 10px;
+    text-align: center;
+    background: #eee;
+    border: 3px solid red;
+}
+
+
+/* ---------- Confirm to Ready Window ----------*/
+#confirmToGameReadyDiv, #confirmGameStartDiv, #confirmGameStopDiv{
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    text-align: center;
+    background: #eee;
+    border-radius: 10px;
+}
+#confirmToGameReadyDiv{
+    width: 40%;
+    height: fit-content;
+    padding: 10px;
+    border: 3px solid green;
+}
+#confirmGameStartDiv{
+    top: 40%;
+    width: 0;
+    height: 10%;
+    border: 0;
+}
+#confirmGameStopDiv{
+    width: 0;
+    height: 20%;
+    border: 0;
+    display: grid;
+    grid-template-rows: 5% 55% 40%;
+}
+#confirmGameStartText, #gameStartStoppedText{
+    grid-row: 2;
+}
+#confirmGameStartText{
+    margin: 5%;
+}
+.readyToGameButton, #confirmGameStopButton{
+    padding: 5px;
+    background: #eee;
+    border: 3px solid green;
+    position: center;
+    border-radius: 8px;
+}
+#confirmGameStopButton{
+    padding: 5px;
+    border: 0;
+    grid-row: 3;
+    margin: 0 auto 0 auto;
+}
+
+
+/* ---------------------------------------------------------------------------- GameCss ------------------------------------------------------- */
+#gameItself div{
+    color: yellow;
+}
+.backslash{
+    color: yellow;
+}
+.gameTable{
+    color: yellow;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 10% 15% 10% 25% 10% 15% 10%;
+    grid-template-rows: 42% 27% 13% 17% ;
+    gap: 4px;
+    padding: 4px;
+}
+.gameTable > div {
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+}
+.grdMiddleTable {
+    grid-column-start: 3;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 5;
+    width: 114%;
+    height: 125%;
+    background-image: url("../image/barrelTableHalf.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0 -5% 0 -5%;
+    filter: brightness(90%);
+    z-index: -1;
+}
+
+#player1Deck{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    margin: 2%;
+}
+#player2Deck{
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row: 1;
+}
+#player3Deck{
+    grid-column: 4;
+    grid-row: 1;
+}
+.grdMiddleDown{
+    grid-column-start: 3;
+    grid-column-end: 6;
+    grid-row-start: 3;
+    grid-row-end: 5;
+}
+#player4Deck{
+    grid-column-start: 5;
+    grid-column-end: 7;
+    grid-row: 1;
+}
+#player5Deck{
+    grid-column-start: 6;
+    grid-column-end: 8;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+/* ---------- Center-Div  ---------- */
+.tableDesk{
+    grid-column-start: 3;
+    grid-column-end: 6;
+    grid-row: 2;
+    width: 100%;
+    height: 100%;
+}
+/* ---------- Hand-Cards ---------- */
+.cardDeck{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 2px;
+    padding: 10px;
+    z-index: 1;
+    align-items: center;
+    position: center;
+}
+#cardPlace1, #cardPlace2, #cardPlace3, #cardPlace4, #cardPlace5{ grid-row: 1; display: none; }
+#cardPlace6, #cardPlace7, #cardPlace8, #cardPlace9, #cardPlace10{ grid-row: 2; display: none; }
+.card{
+    width: 100%;
+    height: 100%;
+    margin: 2%;
+    background-image: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+/* ---------- Other Players ---------- */
+#player5Deck, #player4Deck, #player3Deck, #player1Deck, #player2Deck{
+    margin: 2%;
+    background-image: url("../image/coverDarkLong.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    height: 1px;
+    width: 1px;
+    display: grid;
+    grid-template-columns: auto 150px auto;
+    grid-template-rows: 24% 73%;
+}
+
+.sidePlayerUpHeader, .sidePlayerDownHeader{
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 35% 10% 8% 40%;
+    margin-top: 7%;
+    font-size: 20px;
+}
+.playerName{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row: 1;
+    font-size: 30px;
+}
+.playerId {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row: 0;
+    font-size: 1px;
+
+}
+.totalScoreSoFar{
+    grid-column: 1;
+    grid-row: 2;
+}
+.currentScore{
+    grid-column: 2;
+    grid-row: 2;
+}
+.betScore{
+    grid-column: 4;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns:50% 20% 30%;
+}
+.madeBets{
+    grid-column: 1;
+}
+.separator{
+    grid-column: 2;
+}
+.estimatedBets{
+    grid-column: 3;
+}
+.showPlayerCard{
+    grid-column: 2;
+    grid-row: 2;
+    background-image: url("../image/backCover.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto 0 auto;
+}
+/* ---------- User Desk ---------- */
+.userPlayer{
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 5% 41% 5% 5% 5% 10% 2% 29%;
+    grid-template-rows: 27% 17% 15% 15% 20%;
+    font-weight: bolder;
+    font-size: 12px;
+    background-image: url("../image/coverUser.png");
+    background-repeat: round;
+}
+#infoText{
+    font-size: 13px;
+    background-color: #eeeeee;
+    color: black;
+    grid-column-start: 1;
+    grid-column-end: 8;
+    grid-row: 1;
+    margin: 2% 0 1% 2%;
+    padding: 1px;
+    border: black 2px solid;
+    border-radius: 15px;
+    height: fit-content;
+}
+#userNameField{
+    grid-column: 2;
+    grid-row: 2;
+    border-bottom: yellow 2px solid;
+    border-top: yellow 5px solid;
+    border-left: yellow 5px solid;
+    font-size: 16px;
+    padding-top: 6px;
+}
+#userPlayerName{
+    grid-column-start: 3;
+    grid-column-end: 8;
+    grid-row: 2;
+    font-size: 18px;
+    padding-top: 11px;
+}
+#totalScoreSoFarField{
+    grid-column: 2;
+    grid-row: 3;
+    border-bottom: yellow 2px solid;
+    border-left: yellow 5px solid;
+    padding-top: 10px;
+}
+#totalScoreSoFarFromUser{
+    grid-column: 3;
+    grid-row: 3;
+    font-weight: bolder;
+    padding-top: 5px;
+}
+#currentScoreField{
+    grid-column: 2;
+    grid-row: 4;
+    border-bottom: yellow 2px solid;
+    border-left: yellow 5px solid;
+    padding-top: 10px;
+}
+#currentScoreFromUser{
+    grid-column: 4;
+    grid-row: 4;
+    padding-top: 6px;
+}
+#betScoreField{
+    grid-column: 2;
+    grid-row: 5;
+    border-left: yellow 5px solid;
+    padding-bottom: 25%;
+    border-bottom: yellow 3px solid;
+    padding-top: 6px;
+}
+#betScoreUser{
+    padding-top: 15px;
+    grid-column-start: 6;
+    grid-column-end: 7;
+    grid-row: 5;
+    display: grid;
+    grid-template-columns: 40% 20% 40%;
+}
+#madeBetsUser{
+    grid-column: 1;
+}
+#estimatedBetsUser{
+    grid-column: 3;
+}
+#userCardsLabel{
+    font-size: 10px;
+    background-color: #eeeeee;
+    height: fit-content;
+    width: 100%;
+    border: black 1px solid;
+    border-radius: 10px;
+    color: black;
+    grid-column: 8;
+    grid-row-start: 1;
+}
+#userCards{
+    grid-column: 8;
+    grid-row-start: 1;
+    margin-top: 15%;
+    height: 200px;
+    width: 100%;
+}
+#totalScoreSoFarFromUser, #currentScoreFromUser, #madeBetsUser, #estimatedBetsUser, #userBackSlash{
+    font-size: 16px;
+}
+/* ---------- buttonField  ---------- */
+.buttonField{
+    height: 100%;
+    grid-column: 7;
+    grid-row: 1;
+}
+.buttonFieldButton{
+    font-size: 14px;
+    width: 100%;
+    height: 35%;
+    background-color: #eeeeee;
+    border: orange 3px solid;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5% 0 10% 11%;
+}
+#currentRoundDiv{
+    font-size: 15px;
+    margin: 20px 0 0 25%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    width: 120px;
+    height: 100px;
+}
+#currentRoundLabel{
+    grid-column: 1;
+    margin: 10%;
+}
+#currentRoundText{
+    grid-column: 2;
+    font-weight: bold;
+    margin-top: 100%;
+}
+
+/* ---------- infoWindow  ---------- */
+#infoWindow{
+    grid-column: 4;
+    grid-row-start: 2;
+    background-color: #eeeeee;
+    border: 0;
+    border-radius: 10px;
+    color: black;
+    width: 0;
+    height: 0;
+    margin-top: -30px;
+    margin-left: -15%;
+    display: grid;
+    grid-template-rows: 50% 10% 20% 20%;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+}
+#infoWindowText{
+    grid-row: 1;
+    font-size: 0;
+    padding: 2px 10px 2px 10px;
+}
+#betCounter{
+    font-size: 18px;
+    grid-row: 2;
+    width: 0;
+    margin-left: 40%;
+}
+#infoWindowButton, #stopBetButton{
+    font-size: 18px;
+    width: fit-content;
+    height: 100%;
+    margin: 0 auto 0 auto;
+    background-color: #eeeeee;
+    border: orange 2px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 2px;
+}
+#infoWindowButton{
+    grid-row: 3;
+}
+#stopBetButton{
+    grid-row: 4;
+}
+#indexFromStichWinnerLabel{
+    font-size: 0;
+}
+/* -------------------- hittingOrder -------------------- */
+#hittingOrderDiv{
+    position: center;
+    height: 100%;
+    width: 80%;
+    margin-top: 5%;
+    grid-column-start: 4;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    z-index: 14;
+    border-radius: 15px;
+}
+#hittingOrderImg{
+    height: 100%;
+    width: 100%;
+    background-image: url("../image/hittingOrder_DE.jpeg");
+    background-repeat: round;
+}
+
+#closeHittingOrderButton{
+    height: 10%;
+    width: 30%;
+    font-size: 18px;
+    background-color: #eeeeee;
+    border: orange 3px solid;
+    border-radius: 15px;
+}
+
+/* ---------- hatchButton to exit or back ---------- */
+.backToMenu, .exitLabel{
+    grid-row: 2;
+}
+#leaveLabel{
+    font-size: 13px;
+    margin-top: -10%;
+    margin-left: 15%;
+}
+/* ---------- leaveGameWindow to exit or back ---------- */
+#gameQuitWindow {
+    background-color: #eeeeee;
+    grid-column: 4;
+    grid-row-start: 2;
+    font-size: 20px;
+    color: black;
+    z-index: 15;
+    height: 0;
+    width: 0;
+    margin-top: -10%;
+    margin-left: -20%;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    grid-template-rows: 5% 45% 45% 5%;
+    grid-template-columns: 10% 8% 30% 4% 30% 8% 10%;
+    border: 0;
+    border-radius: 15px;
+}
+
+#gameQuitText, #continueTheGameTextOther, #waitForTheAnswer, #continueTheGameTextYou{
+    grid-row: 2;
+    grid-column-start: 2;
+    grid-column-end: 7;
+}
+#gameQuitButtonYes, #gameQuitButtonNo, #continueTheGameButton{
+    height: 60%;
+    width: 100%;
+    font-size: 16px;
+    border: red 3px solid;
+    background-color: #eeeeee;
+    border-radius: 15px;
+    cursor: pointer;
+}
+#gameQuitButtonYes{
+    grid-row: 3;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+#gameQuitButtonNo{
+    grid-row: 3;
+    grid-column-start: 4;
+    grid-column-end: 8;
+}
+#continueTheGameButton{
+    grid-row: 3;
+    grid-column-start: 3;
+    grid-column-end: 6;
+}
+
+.gameTable button, h3, h4{
+    color: black;
+}
+
+
+/* ------------------------------ Responsive Code ------------------------------ */
+/* Screen > 600px */
+@media (max-width: 600px){
+    /* Language-Box */
+    h2{ /* .fileTitel, #welcomeTitel */
+        font-size: 28px;
+    }
+    h3{
+        font-size: 20px;
+    }
+    h4{
+        font-size: 16px;
+    }
+    h5{
+        font-size: 14px;
+    }
+    .languageDiv label{
+        font-size: 12px;
+    }
+    #mainLanguagesDiv, #setupLanguagesDiv{
+        margin-top: -105px;
+    }
+    #lobbyLanguagesDiv{
+        margin-top: -145px;
+    }
+    /* Welcome-Screen */
+    #welcomeCover{
+        height: 30%;
+        width: 30%;
+        margin: 0 35% 0 35%;
+    }
+    .formInput label{
+        font-size: 18px;
+    }
+    .formInput input{
+        width: 60%;
+    }
+    .formInput button {
+        font-size: 16px;
+    }
+    /* hatchButton */
+    .hatchButton{
+        height: 50px;
+        width: 50px;
+    }
+    .barrelButton{
+        height: 90%;
+        width: 90%;
+    }
+    /* Chatroom-Screen */
+    .chatScreen{
+        width: 40%;
+        max-width: 360px;
+    }
+    .chatScreen .messages {
+        height: 80%;
+    }
+    #chatroomToMenu{
+        margin: -40% 0 0 110%;
+    }
+    /* MainScreen */
+    .menu {
+        grid-template-rows: 100px auto auto 1px;
+        gap: 1px;
+        padding: 1px;
+    }
+    /* ExitConfirmWindow */
+    .exitConfirmBox {
+        width: 70%;
+        height: 30%;
+        top: 25%;
+        left: 15%;
+    }
+    #exitConfirmation{
+        font-size: 24px;
+        margin-bottom: 4%;
+    }
+    .gameLobbyname, #gameListInMain {
+        font-size: 20px;
+        color: black;
+    }
+    /* LobbyScreen */
+    .playerList, .playerUsername {
+        font-size: 20px;
+        padding: 3px;
+    }
+    #confirmGameStopDiv{
+        height: 20%;
+    }
+    #confirmGameStartDiv{
+        top: 45%;
+        height: 10%;
+    }
+    /* Game */
+    .cardDeck{
+        grid-template-rows: 50% 50%;
+    }
+    #cardPlace1, #cardPlace2, #cardPlace3, #cardPlace4, #cardPlace5{
+        grid-row: 1; display: none;
+    }
+    #cardPlace6, #cardPlace7, #cardPlace8, #cardPlace9, #cardPlace10{
+        grid-row: 2; display: none;
+    }
+    .sidePlayerUpHeader, .sidePlayerDownHeader, .estimatedBets{
+        display: grid;
+        grid-template-columns: 35% 10% 8% 40%;
+        margin-top: 7%;
+        font-size: 16px;
+    }
+    .playerName{
+        margin-top: 0;
+        font-size: 20px;
+    }
+    .showPlayerCard{
+        width: 90%;
+        height: 90%;
+    }
+    .gameTable{
+        grid-template-columns: 10% 15% 10% 25% 10% 15% 10%;
+        grid-template-rows: 40% 30% 10% 20%;
+        gap: 2px;
+        padding: 2px;
+    }
+    #player5Deck{
+        grid-column-start: 6;
+        grid-column-end: 8;
+    }
+    #player5Deck, #player4Deck, #player3Deck, #player1Deck, #player2Deck {
+        grid-template-columns: auto 130px auto;
+        background-image: none;
+    }
+    .userPlayer{
+        font-size: 12px;
+        grid-template-columns: 5% 41% 7% 5% 5% 10% 0 29%;
+        grid-template-rows: 30% 19% 13% 13% 25%;
+    }
+    #userCardsLabel{
+        font-size: 9px;
+    }
+    #infoText{
+        font-size: 11px;
+    }
+    #userNameField, #userPlayerName{
+        font-size: 16px;
+    }
+    #userNameField{
+        border-top: yellow 2px solid;
+    }
+    #userNameField, #betScoreField, #currentScoreField, #totalScoreSoFarField{
+        border-left: yellow 2px solid;
+        border-right: 0;
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser, #madeBetsUser, #estimatedBetsUser, #userBackSlash{
+        font-size: 14px;
+    }
+    #userNameField{
+        padding-top: 2px;
+    }
+    #userPlayerName{
+        padding-top: 10px;
+    }
+    #totalScoreSoFarField, #currentScoreField{
+        padding-top: 0;
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser{
+        padding-top: 0;
+    }
+    #betScoreField{
+        padding-top: 1px;
+    }
+    #betScoreUser{
+        padding-top: 8px;
+    }
+    #userCards{
+        height: 180px;
+        width: 100%;
+    }
+    .buttonFieldButton{
+        border-radius: 12px;
+    }
+    #currentRoundDiv{
+        margin: 1px 0 0 25%;
+    }
+    #infoWindowButton, #stopBetButton{
+        font-size: 14px;
+    }
+}
+
+
+
+/* Screen < 800px */
+@media (min-width: 800px){
+    h2{ /* #welcomeTitle, .fileTitel */
+        font-size: 40px;
+    }
+    h3{
+        font-size: 24px;
+    }
+    h5{
+        font-size: 24px;
+    }
+    /* Language-Box */
+    .languageDiv label{
+        font-size: 20px;
+    }
+    #mainLanguagesDiv, #setupLanguagesDiv{
+        margin-top: -132.1px;
+    }
+    #lobbyLanguagesDiv {
+        margin-top: -172px;
+    }
+    /* Welcome-Screen */
+    #welcomeCover{
+        height: 50%;
+        width: 50%;
+        margin: 0 25% 0 25%;
+    }
+    .formInput label{
+        font-size: 24px;
+    }
+    .formInput input{
+        width: 100%;
+    }
+    /* hatchButton */
+    .hatchButton{
+        height: 80px;
+        width: 80px;
+    }
+    /* Chatroom-screen */
+    .chatScreen{
+        width: 80%;
+        max-width: 500px;
+    }
+    .chatScreen .messages {
+        height: 75%;
+    }
+    /* Main-Screen */
+    .menu {
+        grid-template-rows: 100px auto auto 20px;
+        gap: 10px;
+        padding: 10px;
+    }
+    /* ExitConfirmWindow */
+    #exitConfirmation{
+        font-size: 32px;
+        margin-bottom: 4%;
+    }
+    /* lobbyScreen*/
+    .gameLobbyname, #gameListInMain, .playerList, .playerUsername {
+        font-size: 32px;
+    }
+    #confirmGameStopDiv{
+        height: 15%;
+    }
+    #confirmGameStartDiv{
+        top: 40%;
+        height: 10%;
+    }
+    /* Game */
+    .showPlayerCard{
+        width: 100%;
+        height: 100%;
+    }
+    .gameTable{
+        grid-template-columns: 10% 15% 10% 25% 10% 15% 10%;
+        grid-template-rows: 40% 20% 20% 20%;
+        gap: 5px;
+        padding: 5px;
+    }
+    .sidePlayerUpHeader, .sidePlayerDownHeader, .estimatedBets{
+        display: grid;
+        grid-template-columns: 35% 10% 8% 40%;
+        margin-top: 7%;
+        font-size: 20px;
+    }
+    #player5Deck, #player4Deck, #player3Deck, #player1Deck, #player2Deck {
+        grid-template-columns: auto 200px auto;
+        background-size: contain;
+        background-position: top;
+    }
+    .userCards{
+        height: 250px;
+    }
+    .userPlayer, #infoText{
+        font-size: 16px;
+    }
+    #totalScoreSoFarField, #currentScoreField{
+        padding-top: 13px
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser{
+        padding-top: 9px;
+    }
+    #betScoreField{
+        padding-top: 7px;
+    }
+    #betScoreUser{
+        padding-top: 18px;
+    }
+    #userNameField{
+        font-size: 16px;
+        padding-top: 10px;
+    }
+    #userPlayerName {
+        font-size: 20px;
+    }
+    #leaveLabel{
+        font-size: 16px;
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser, #madeBetsUser, #estimatedBetsUser, #userBackSlash{
+        font-size: 20px;
+    }
+}
+
+
+@media (min-width: 1400px){
+    h4{
+        font-size: 20px;
+    }
+    /* hatchButton */
+    .hatchButton{
+        height: 120px;
+        width: 120px;
+    }
+    #confirmGameStartText{
+        margin: 2%;
+    }
+    /* Game */
+    #cardPlace1, #cardPlace2, #cardPlace3, #cardPlace4, #cardPlace5, #cardPlace6, #cardPlace7, #cardPlace8, #cardPlace9, #cardPlace10{
+        grid-row: 1; display: none;
+    }
+    #player5Deck, #player4Deck, #player3Deck, #player1Deck, #player2Deck {
+        grid-template-columns: auto 200px auto;
+        background-size: contain;
+    }
+    .sidePlayerUpHeader, .sidePlayerDownHeader, .estimatedBets{
+        font-size: 24px;
+    }
+    .userPlayer{
+        width: 83%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 7% 35% 6% 7% 7% 7% 3% 28%;
+        grid-template-rows: 27% 15% 11% 11% 30%;
+        font-size: 18px;
+    }
+    #infoText{
+        font-size: 20px;
+        padding: 1px;
+    }
+    #userNameField{
+        font-size: 24px;
+        padding-top: 2px;
+    }
+    #userPlayerName{
+        font-size: 24px;
+        padding-top: 10px;
+    }
+    #totalScoreSoFarField, #currentScoreField{
+        padding-top: 6px
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser{
+        padding-top: 3px;
+    }
+    #betScoreField{
+        padding-top: 10px;
+    }
+    #betScoreUser{
+        padding-top: 15px;
+    }
+    #userCardsLabel{
+        font-size: 14px;
+        margin-top: 5%;
+    }
+    #userCards{
+        margin-top: 25%;
+        height: 260px;
+    }
+    .buttonField{
+        width: 70%;
+        height: 100%;
+        grid-column: 5;
+        grid-row-start: 3;
+        grid-row-end: 5;
+        margin-left: 15%;
+        display: grid;
+        grid-template-rows: 30% 30% 15% 25%;
+    }
+    .buttonFieldButton{
+        font-size: 18px;
+        width: 100%;
+        height: 80%;
+    }
+    #makeABetButton{
+        grid-row: 1;
+    }
+    #gameRulesButton{
+        grid-row: 2;
+    }
+    #currentRoundDiv{
+        grid-column: 5;
+        grid-row-start: 4;
+        grid-row-end: 7;
+        display: grid;
+        grid-template-rows: 10% 90%;
+        font-size: 18px;
+    }
+    #currentRoundLabel{
+        grid-row: 1;
+    }
+    #currentRoundText{
+        grid-row: 2;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    #leaveLabel{
+        font-size: 20px;
+    }
+    #totalScoreSoFarFromUser, #currentScoreFromUser, #madeBetsUser, #estimatedBetsUser, #userBackSlash{
+        font-size: 22px;
+    }
+    #userNameField, #betScoreField, #currentScoreField, #totalScoreSoFarField{
+        border-right: yellow 2px solid;
+    }
+}
+
+
+
+/* height < 500px */
+@media (max-height: 500px){
+    .chatScreen .messages {
+        height: 69%;
+    }
+    #chatroomToMenu{
+        margin: -20% 0 0 110%;
+    }
+    .exitConfirmBox {
+        height: 60%;
+        top: 20%;
+    }
+    #currentNameDiv{
+        top: 40%;
+    }
+    #setupScreen #setupForm{
+        top: 70%;
+    }
+    #confirmGameStopDiv{
+        height: 45%;
+    }
+    #confirmGameStartDiv{
+        top: 45%;
+        height: 15%;
+    }
+    /* Game */
+    .showPlayerCard{
+        width: 90%;
+        height: 90%;
+    }
+    .gameTable{
+        grid-template-columns: 10% 15% 10% 25% 10% 15% 10% 1%;
+        grid-template-rows: 40% 20% 20% 20%;
+        gap: 2px;
+        padding: 0;
+    }
+    .playerName {
+        margin-top: 5%;
+    }
+    .totalScoreSoFar, .betScore{ margin-top: -11%;}
+    .currentScore{  margin-top: -44%;}
+    .buttonFieldButton {
+        font-size: 12px;
+        border-radius: 10px;
+    }
+    #currentRoundDiv{
+        font-size: 12px;
+        margin: 10px 0 0 25%;
+        grid-row: 4;
+    }
+    .userPlayer {
+        font-size: 10px;
+    }
+    #gameRulesSite{
+        max-height: 450px;
+    }
+    #gameQuitWindow{
+        margin-top: -60%;
+    }
+}
