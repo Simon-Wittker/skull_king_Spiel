@@ -70,7 +70,7 @@ Dieses Projekt kann entweder mit MongoDB oder einem lokalen In-Memory-Speicher b
 
 ---
 
-## Schritt 4: WebSocket-Server starten
+## Schritt 4: WebSocket-Server starten / Spiel starten
 
 Starten Sie den WebSocket-Server mit folgendem Befehl:
 
@@ -92,7 +92,7 @@ Gleichzeitig öffnet sich ein Browserfenster mit dem Spiel.
 
 Sobald der Server läuft und der Client im Browser geöffnet ist:
 
-1. Treten Sie einer Spiel-Lobby bei.
+1. Eröffnen sie ein Spiel oder treten Sie einer Spiel-Lobby bei.
 2. Interagieren Sie mit anderen Spielern über die WebSocket-Verbindung.
 3. Spielen Sie das Skull King Spiel!
 
@@ -112,9 +112,4 @@ Sobald der Server läuft und der Client im Browser geöffnet ist:
   npm install
   ```
 
----
-
-## Lizenz
-
-Dieses Projekt steht unter der MIT-Lizenz. Siehe die LICENSE-Datei für Details.
 
