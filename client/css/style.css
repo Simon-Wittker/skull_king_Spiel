@@ -44,6 +44,9 @@ button{
     font-size: 20px;
 }
 
+select{
+    color:#111;
+}
 
 /* ---------- WelcomeSite ---------- */
 .app > .screen {
