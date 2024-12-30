@@ -745,6 +745,7 @@ function getGameDataForInit(){
     data.dataType = websocketGame.INITIAL_GAME_DATA;
     data.message = websocketGame.gameId;
     websocketGame.socket.send(JSON.stringify(data));
+    closeInfoWindow();
 }
 // Render the Game-Infos and fill the Data in the Places
 function initialGameGUI(message){
@@ -917,7 +918,7 @@ function showBetWindow(){
             document.getElementById("infoWindowText").textContent = betWindowMessage;
             document.getElementById("stopBetButton").textContent = stopBetButtonText;
             document.getElementById("stopBetButton").hidden = false;
-            openInfoWindows()
+            openInfoWindows(1)
         }
     }
 }
@@ -969,7 +970,7 @@ function infoWindowButtonHandler() {
     }
 }
 
-function closeInfoWindow(){
+function closeInfoWindow(status){
     document.getElementById("infoWindow").style.width = "0";
     document.getElementById("infoWindow").style.height = "0";
     document.getElementById("infoWindow").style.border = "0";
@@ -992,11 +993,17 @@ function openInfoWindows(){
     if (window.innerHeight < 500) {
         heightFactor += 130;
     }
-    document.getElementById("infoWindow").style.width = "130%";
-    document.getElementById("infoWindow").style.height = heightFactor.toString() + "%";
-    document.getElementById("infoWindow").style.border = "orange 3px solid";
-    document.getElementById("infoWindowButton").hidden = false;
-    document.getElementById("infoWindowText").style.fontSize = fontSize.toString() + "px";
+    if (status == 1){
+        $("#infoWindow").show();
+        $("#betCounter").show();
+        $("#infoWindowButton").show();
+        $("#infoWindowText").show();
+        $("#stopBetButton").show();
+    } else {
+        $("#infoWindow").show();
+        $("#infoWindowButton").show();
+        $("#infoWindowText").show();
+    }
 }
 
 
@@ -1125,7 +1132,7 @@ function renderStichFinder(message){
         stichButtonText = "Continue"
         infoTextContinue = 'Click on "Continue" to continue';
     }
-    openInfoWindows()
+    openInfoWindows(2)
     document.getElementById("infoWindowButton").textContent = stichButtonText;
     // infoText update
     document.getElementById("infoText").textContent = infoTextContinue;
